@@ -6,7 +6,7 @@
 /*   By: jefernan <jefernan@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 20:44:42 by jefernan          #+#    #+#             */
-/*   Updated: 2022/04/03 23:14:21 by jefernan         ###   ########.fr       */
+/*   Updated: 2022/04/12 14:37:09 by jefernan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,17 @@ int	main(int argc, char *argv[])
 	int					pid;
 	struct sigaction	sa;
 
-	pid = ft_atoi(argv[1]);
-	if (argc != 3 || pid < 0)
+	if (argc != 3)
+	{
 		write (1, "Error. Use: ./client PID MESSAGE\n", 34);
+		exit (1);
+	}
+	pid = ft_atoi(argv[1]);
+	if (pid == 0 || pid < 0)
+	{
+		write (1, "Invalid PID\n", 13);
+		exit (1);
+	}
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_handler = server_response;
 	if (sigaction(SIGUSR1, &sa, NULL) < 0 || sigaction(SIGUSR2, &sa, NULL) < 0)
@@ -52,7 +60,7 @@ void	send_bit(int pid, int c)
 		else
 			kill(pid, SIGUSR2);
 		bit++;
-		usleep(10000);
+		usleep(1000);
 	}
 }
 
