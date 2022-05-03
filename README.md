@@ -11,6 +11,27 @@ using UNIX signals._
 
 You must create a communication program in the form of a client and a server.
 
+## Getting started
+**Follow the steps below**
+```bash
+# Clone the project and access the folder
+git clone https://github.com/nandajfa/minitalk.git && cd minitalk/
+
+# Compile minitalk
+make
+
+# First you launch server:
+$ ./server
+Server will print its PID and wait
+
+# So you use the client to send string or unicode characters to the server
+$ ./client PID_SERVER STRING
+
+# Clean output objects with
+make fclean
+
+# Well done!
+```
 ### Skills
 
 * Rigor
